@@ -11,3 +11,4 @@ namespace Core\Auth;
 interface Authenticatable {
     //put your code here
 }
+ 
