@@ -10,11 +10,11 @@
 
 spl_autoload_register(function($class)
 {
-    $class = explode("\\", $class);
-    if ( count($class) > 1)
+    $with_nmsp = explode("\\", $class);
+    if ( count($with_nmsp) > 1)
     {
         
-        $class = implode('/', $class);
+        $class = implode('/', $with_nmsp);
         if ( file_exists( '../'.$class.'.php' ) ){
             include_once '../'.$class.'.php';
         } else {
@@ -22,6 +22,7 @@ spl_autoload_register(function($class)
         }
         return;
     }
+    /*
     if ( file_exists( core.DS.$class.'.php' ) ){
         include_once core.DS.$class.'.php';
     }elseif (file_exists(app['con'].DS.$class.'.php')) {
@@ -31,5 +32,7 @@ spl_autoload_register(function($class)
     }else{
         echo 'file '.$class.'.php doesn\'t exist';
     }
+     * 
+     */
 }
 );

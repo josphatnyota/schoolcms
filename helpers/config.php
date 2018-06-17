@@ -11,8 +11,17 @@ ini_set("display_errors", 1);
 /**
  * Define directory separator
  */
-define("DS", "/");    
+define("DS", "/");
+/*
+ * Define default controller
+ */
+define('CONTROLLER', '\App\Controllers\Home');
 
+/*
+ * Define default action
+ */
+
+define('ACTION', 'index');
 /**
  * 
  * @return app root path
@@ -56,6 +65,16 @@ define("app", [
 ]); 
   * 
   */
+ /*
+  * Define Default template
+  */
+ 
+ define('TEMPLATE', '../app/views/templates/primary');
+ 
+ /*
+  * Define default title
+  */
+ define('TITLE', 'Sunshine High');
 /*
  * Call the autoloader
  */

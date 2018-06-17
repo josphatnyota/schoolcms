@@ -15,12 +15,16 @@ session_start();
  * get url to process for redirects
  */
 
- 
+error_reporting(E_ALL);
 
 /*
  * disintegrating url into an array of parts
  */
-$parts = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim("/", $_SERVER['PATH_INFO'])) : [];
+
+$parts = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim( $_SERVER['PATH_INFO'],"/")) : [];
 
 include_once '../helpers/config.php';
+#(new \Core\View)->render("home/index");
+new \Core\Router($parts);
+
 

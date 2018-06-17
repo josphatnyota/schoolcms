@@ -13,4 +13,7 @@ class Home {
     public function __construct() {
         echo 'Hello nerd';
     }
+    public function index(){
+        echo 'passing';
+    }
 }
