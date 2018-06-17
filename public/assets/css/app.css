@@ -13,4 +13,9 @@ body {
   padding: 5px;
 }
 
-/*# sourceMappingURL=css/app.css.map */
+div {
+  font-family: sans-serif;
+  color: #fffddd;
+}
+
+/*# sourceMappingURL=public/assets/css/app.css.map */

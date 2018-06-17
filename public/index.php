@@ -1,8 +1,26 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Description of index
+ * Created on : Jun 16, 2018, 11:26:26 AM
+ * @author afrikannerd <https://github.com/afrikannerd>
+ * @version "0.1"
  */
+
+/**
+ * start session
+ */
+session_start();
+/**
+ * get url to process for redirects
+ */
+
+ 
+
+/*
+ * disintegrating url into an array of parts
+ */
+$parts = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim("/", $_SERVER['PATH_INFO'])) : [];
+
+include_once '../helpers/config.php';
 
