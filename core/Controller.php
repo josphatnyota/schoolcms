@@ -8,6 +8,16 @@ namespace Core;
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
-class Controller {
-    //put your code here
+abstract class Controller {
+    protected $model = MODEL;
+    public $view;
+    
+    public function __construct($model) {
+        $this->view = new View();
+    }
+    
+    protected function model($model){
+        $this->model = str_replace(CONTROLLER_NAMESPACE, MODEL_NAMESPACE, $model);
+        return new $this->model();
+    }
 }

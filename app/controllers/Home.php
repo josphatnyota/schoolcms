@@ -1,19 +1,26 @@
 <?php
 
 namespace App\Controllers;
-
+use Core\Controller;
 /**
  * Description of Home
  * Created on : Jun 16, 2018, 4:10:01 PM
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
-class Home {
+class Home extends Controller {
     //put your code here
-    public function __construct() {
-        echo 'Hello nerd';
+    public function __construct($model) {
+        parent::__construct($model);
     }
     public function index(){
-        echo 'passing';
+        $this->view->render('home/index');
+    }
+    public function another(){
+        $this->view->render('student/index');
+    }
+    public function __call($name, $arguments) {
+        $bad_uri = $_SERVER['REQUEST_URI'];
+        $this->view->render('error404');
     }
 }

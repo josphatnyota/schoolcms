@@ -9,5 +9,11 @@ namespace Core;
  * @version "0.1"
  */
 class App {
-    //put your code here
+    /**
+     * prints out the directory
+     * 
+     */
+    public function __construct() {
+        echo dirname(dirname(__DIR__));
+    }
 }

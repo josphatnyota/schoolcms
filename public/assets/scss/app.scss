@@ -9,13 +9,20 @@ and open the template in the editor.
 */
 
 $color:#fffddd;
+$bgcolor:#637988;
 body{
     color:$color;
-    background: #ccc;
+    background: $bgcolor;
     padding: 5px;
 }
 
 div{
     font-family: sans-serif;
     color: $color;
+}
+
+.error404{
+    margin: 50px auto;
+    background: $bgcolor;
+    text-align: center;
 }

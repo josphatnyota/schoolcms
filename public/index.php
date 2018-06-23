@@ -24,7 +24,17 @@ error_reporting(E_ALL);
 $parts = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim( $_SERVER['PATH_INFO'],"/")) : [];
 
 include_once '../helpers/config.php';
-#(new \Core\View)->render("home/index");
-new \Core\Router($parts);
 
 
+#$k = new \Core\Router();
+
+$t = \Core\DB::instance();
+$fields = ['password','token'];
+$args = [
+    'fname' => 'Amolo',
+    'lname' => 'Caleb'
+];
+$table = "students";
+$k = 44;
+echo '<pre>';var_dump($t->getRowCount());
+#echo $t->lastInsertID()->getLastInsertID();

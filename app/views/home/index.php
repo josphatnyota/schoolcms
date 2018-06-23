@@ -1,11 +1,6 @@
  <?php $this->setTitle("Home");?>
 <?php $this->open('head');?>
-    <style>
-        body,html{
-            background: #acdacd;
-            color: #b37a16;
-        }
-    </style>
+    
 <?php $this->close();?>
 <?php $this->open('body');?>
     <div>

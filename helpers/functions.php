@@ -6,10 +6,12 @@
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
+function dnd($arr) {
+    echo "<pre>";
+    var_dump($arr);
+    echo "</pre>";
+}
 
-function dnd($t){
-   echo '<pre>';
-        var_dump($t);
-    echo '</pre>';
-    die();
+function contains($haystack, $needle) {
+    return strpos($haystack, $needle) !== false;
 }

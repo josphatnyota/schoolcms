@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 body {
   color: #fffddd;
-  background: #ccc;
+  background: #637988;
   padding: 5px;
 }
 
@@ -18,4 +18,10 @@ div {
   color: #fffddd;
 }
 
-/*# sourceMappingURL=public/assets/css/app.css.map */
+.error404 {
+  margin: 50px auto;
+  background: #637988;
+  text-align: center;
+}
+
+/*# sourceMappingURL=file:///E:/Projects/schoolcms/public/assets/css/app.css.map */

@@ -8,6 +8,10 @@ namespace Core;
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
-class Model {
-    //put your code here
+abstract class Model {
+    protected $_instance = null;
+    
+    public function __construct() {
+        $this->_instance = DB::instance();
+    }
 }
