@@ -9,7 +9,11 @@ namespace Core\Security;
  * @version "0.1"
  */
 interface Securable {
+    
     public static function pathIntegrityCheck($path):bool;
+    
     public static function XSRFProtection($token):bool;
+    
     public static function XSRFTokenGenerator():string;
+    
 }

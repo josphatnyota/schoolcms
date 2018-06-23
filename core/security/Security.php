@@ -15,23 +15,35 @@ class Security implements Securable {
      * @return bool
      */
     public static function pathIntegrityCheck($path):bool{
+        
         $url = null;
         $allowed = ALLOWED_PATHS;
+        
         if(strpos($path, "?") !== false){
+            
             $url = explode('?', $path, 2);
             
         }else{
+            
             $url = explode('/', $path, 2);
+            
         }
+        
         if(strpos($url[0], '/') !== false)
         {
+            
             $url = explode('/', $url[0]);
+            
         }
+        
         if (preg_grep("/^$url[0]$/i", $allowed)){
+            
             return true;
+            
         }
         
         return false;
+        
     }
     
     /**
@@ -40,10 +52,15 @@ class Security implements Securable {
      * @return bool
      */
     public static function XSRFProtection($token):bool{
+        
         if($_SESSION['token'] === $token){
+            
             return true;
+            
         } else {
+            
             return false;
+            
         }
     }
     /**
@@ -51,7 +68,9 @@ class Security implements Securable {
      * @return string
      */
     public static function XSRFTokenGenerator():string {
+        
         return \hash('sha256', self::randomGenegator(13));
+        
     }
     /**
      * 
@@ -59,17 +78,22 @@ class Security implements Securable {
      * @return string
      */
     public static function randomGenegator($length):string{
+        
         $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $token = '';
         $max = strlen($alphabet);
+        
         for ($x = 0; $x < $length; $x++) {
+            
             $token .= $alphabet[random_int(0, $max - 1)];
+            
         }
         
         return $token;
     }
 
    public static function adminAreaAuth(){
+       
        $authorized = false;
        
        $credentials = parse_ini_file("../helpers/settings.ini", true);
@@ -83,10 +107,12 @@ class Security implements Securable {
        }
        
        if (!$authorized){
+           
            header("WWW-Authenticate: Basic realm = 'Dashboard'");
            header("HTTP/1.0 401 Unauthorized");
            (new \Core\View())->render("error401");
            die();
+           
        }
        
    }

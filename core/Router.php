@@ -9,45 +9,57 @@ use Core\Security\Security;
  * @version "0.1"
  */
 final class Router {
+    
     private $routes;
     
-   
-    
     use URLValidator;
+    
     public function __construct() {
+        
         if($this->parseUrl() === TRUE){
+            
             $this->dispatch();
+            
         }
+        
     }
-    public function add($route):void{
-        $this->routes[] = $route;
-    }
+    
     
     public function parseUrl(){
+        
         $url = preg_replace('/\s+/','',urldecode($_SERVER['REQUEST_URI']));
         $url = ltrim($url, '/');
-        
         $url = preg_replace('/\?(?!.*[a-zA-Z0-9])|\/(?!.*[a-zA-Z0-9])/','', $url);
         $url = str_replace("/?", "?", $url);
         
         if(empty($url)||!preg_grep('/^[a-z]/i', [$url])){
+            
             $url = CONTROLLER_NAME.$url;
+            
         }
         
         if(Security::pathIntegrityCheck($url)){
+            
             if($this->type($url)){
+                
                 $this->routes = $this->splitUrl($url, true);
+                
             }else{
+                
                 $this->routes = $this->splitUrl($url, false);
+                
             }
+            
         }else{
             
             return new class(){
-            public function __construct(){
-                (new View())->render('error404');
+                
+                public function __construct(){
 
-            }
-        };
+                    (new View())->render('error404');
+
+                }
+            };
        
         }
         
@@ -55,18 +67,24 @@ final class Router {
     }
     
     public function dispatch(){
+        
         $model = '';
         $controller = $model = isset($this->routes['callable']['controller']) ?$this->routes['callable']['controller']:CONTROLLER;
         $action     = $this->routes['callable']['action'];
         $params     = $this->routes['params']??[];
         
         if(!class_exists($controller)){
+            
             return new class(){
-            public function __construct(){
-                (new View())->render('error404');
-                
-            }
-        };
+
+                public function __construct(){
+
+                    (new View())->render('error404');
+
+                }
+            
+            };
+            
         }
         
         $obj = new $controller($model);
