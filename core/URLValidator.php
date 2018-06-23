@@ -8,16 +8,13 @@ namespace Core;
  */
 trait URLValidator {
     
-    public function decode($path){
-        
-        return urldecode($path);
-    }
+    
     /**
      * 
      * @param type $path
      * @return true if its a query/ajax-like string,otherwise return false
      */
-    public function type($path):bool{
+    public function type($path):int{
         
         if (strpos($path, '?')!== false || strpos($path, '=') !== false){
             return true;
@@ -28,7 +25,7 @@ trait URLValidator {
     public function splitUrl($path , $bool):array{
         if($bool === true){
             return $this->splitQueryTypeUrl($path);
-        } else {
+        }else{
             return $this->splitNormalUrl($path);
         }
     }
@@ -36,8 +33,18 @@ trait URLValidator {
     private function splitQueryTypeUrl($path):array{
         $paths = [];
         $url = explode('?', $path, 2);
-        $callables = explode('/', $url[0]);
-        $paths['callable'] = ['controller'=>'\App\Controllers\\'. ucfirst(strtolower($callables[0])),'action'=>$callables[1]];
+        $callables = [];
+        if(strpos($url[0], "/") !== false){
+            
+            $callables = explode('/', $url[0]);
+        }else{
+            
+            $callables[] = $url[0];
+            $callables[] = ACTION;
+        }
+        
+        $paths['callable'] = ['controller'=>CONTROLLER_NAMESPACE.ucfirst(strtolower($callables[0])),'action'=>$callables[1]];
+        
         $params = [];
         if(strpos($url[1], '&') !== false){
             $args = explode('&', $url[1]);
@@ -63,7 +70,8 @@ trait URLValidator {
         $paths = [];
         $path = rtrim($path, '/');
         $path = explode('/', $path);
-        $paths['callable'] = ['controller'=>$path[0]?'\App\Controllers\\'. ucfirst(strtolower($path[0])):CONTROLLER,'action'=>$path[1]??ACTION];
+        
+        $paths['callable'] = ['controller'=>isset($path[0])?CONTROLLER_NAMESPACE.ucfirst(strtolower($path[0])):CONTROLLER,'action'=>$path[1]??ACTION];
         if(isset($path[1])){
             array_shift($path);
             array_shift($path);
@@ -74,5 +82,6 @@ trait URLValidator {
         
         return $paths;
     }
+   
     
 }

@@ -11,7 +11,16 @@ use Core\Controller;
 class Dashboard extends Controller {
     
     public function __construct($model) {
+        
         parent::__construct($model);
+        
     }
+    
+    public function index(){
+        
+        $this->view->render('admin/index');
+        
+    }
+
     public function __call($name, $arguments) {}
 }

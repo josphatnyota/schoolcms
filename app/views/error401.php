@@ -1,16 +1,18 @@
+<?php
+
+/**
+ * Description of error401
+ * Created on : Jun 24, 2018, 4:53:35 PM
+ * @author afrikannerd <https://github.com/afrikannerd>
+ * @version "0.1"
+ */
+?>
 <!DOCTYPE html>
-<!--
 
-* Description of error404
-* Created on : Jun 24, 2018, 12:57:36 PM
-* @author afrikannerd <https://github.com/afrikannerd>
-* @version "0.1"
-
--->
     <html>
         <head>
             <meta charset="UTF-8">
-            <title>404</title>
+            <title>401</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <style>
                 .error404{
@@ -41,8 +43,8 @@
         <body>
             <div class="container error404">
                 <div class="wrapper">
-                <h1 class="h1">That's a 404</h1>
-                <p class="message"><?= $_SERVER['REQUEST_URI'];?> not found</p>
+                <h1 class="h1">That's a 401</h1>
+                <p class="message">Restricted Access.here be dragons</p>
                 <span class="fallback">Navigate safely back </span><a href="/home">home</a>
                 </div>
             </div>

@@ -15,26 +15,19 @@ class Security implements Securable {
      * @return bool
      */
     public static function pathIntegrityCheck($path):bool{
-        /*$basePath = ROOT;
-        $realBase = realpath($basePath);
-        $clientPath = $realBase.$path;
-        $realClientPath = realpath($clientPath);
-        if($realClientPath === false || strcasecmp($realClientPath, $realBase)
-                !== 0 || strpos($realClientPath, $realBase) !==0){
-            /*
-             * ====================================================
-             *           404 handler here
-             * ====================================================
-             *
-            return false;
-            
-        }
-         * 
-         */
-        $url = explode('/', $path, 2);
+        $url = null;
         $allowed = ALLOWED_PATHS;
-        
-        if (preg_grep("/$url[0]/i", $allowed)){
+        if(strpos($path, "?") !== false){
+            $url = explode('?', $path, 2);
+            
+        }else{
+            $url = explode('/', $path, 2);
+        }
+        if(strpos($url[0], '/') !== false)
+        {
+            $url = explode('/', $url[0]);
+        }
+        if (preg_grep("/^$url[0]$/i", $allowed)){
             return true;
         }
         
@@ -76,6 +69,26 @@ class Security implements Securable {
         return $token;
     }
 
-   
+   public static function adminAreaAuth(){
+       $authorized = false;
+       
+       $credentials = parse_ini_file("../helpers/settings.ini", true);
+       $user = $_SERVER['PHP_AUTH_USER']??"";
+       $pass = $_SERVER['PHP_AUTH_PW']??"";
+       
+       if($user === $credentials['admin']['user'] && $pass === $credentials['admin']['pass'] ){
+           
+           $authorized = true;
+           
+       }
+       
+       if (!$authorized){
+           header("WWW-Authenticate: Basic realm = 'Dashboard'");
+           header("HTTP/1.0 401 Unauthorized");
+           (new \Core\View())->render("error401");
+           die();
+       }
+       
+   }
 
 }

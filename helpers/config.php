@@ -8,6 +8,7 @@
  * @version "0.1"
  */
 ini_set("display_errors",1);
+error_reporting(E_ALL);
 /**
  * Define directory separator
  */
@@ -16,6 +17,7 @@ define("DS", "/");
  * Define default controller and its namespace
  */
 define('CONTROLLER', '\App\Controllers\Home');
+define('CONTROLLER_NAME', 'Home');
 define('CONTROLLER_NAMESPACE', '\App\Controllers\\');
 /*
  * Define default action
@@ -88,7 +90,7 @@ define("app", [
 /*
  * Define allowed paths
  */
-define('ALLOWED_PATHS', ['Home','About','User','Dashboard']);
+define('ALLOWED_PATHS', ['Home','About','User','Dashboard','profile']);
 
 
 include_once 'autoloader.php';

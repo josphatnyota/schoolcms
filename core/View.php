@@ -15,9 +15,14 @@ class View {
     }
     
     public function render($view):void{
+        $except = ["error404","error401"];
+       
+        
         if (file_exists('../app/views/'.$view.'.php')) {
             include_once '../app/views/'.$view.'.php';
-            include_once $this->_template.'.php';
+            if(!in_array($view,$except)){
+                include_once $this->_template.'.php';
+            }
         } else {
             /*
              *   ==========================
@@ -27,20 +32,7 @@ class View {
             $this->_errors[] =  '../app/views/'.$view.'.php doesnt exist';
         }
     }
-    /*
-    public function content($type){
-        switch ($type) {
-            case 'head':
-                return $this->_head;
-            case 'body':
-                return $this->_body;
-            default:
-                return false;
-        }
-    }
-     * 
-     * 
-     */
+ 
     
     public function open($type):void{
         $this->_content = $type;

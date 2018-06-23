@@ -17,8 +17,6 @@ spl_autoload_register(function($class)
         $class = implode('/', $with_nmsp);
         if ( file_exists( '../'.$class.'.php' ) ){
             include_once '../'.$class.'.php';
-        } else {
-            echo 'file ../'.$class.'.php doesn\'t exist';
         }
         return;
     }
