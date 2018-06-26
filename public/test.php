@@ -1,3 +1,11 @@
-<?php
-$word = "amolo@gg.co.ke";
-$pattern = '/^[a-zA-Z]+./';
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+
+     
+</body>
+</html> 

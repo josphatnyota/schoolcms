@@ -21,6 +21,14 @@ class Dashboard extends Controller {
         $this->view->render('admin/index');
         
     }
-
-    public function __call($name, $arguments) {}
+    
+    public function teachers(){
+        $this->view->render('error401');
+    }
+    public function __call($name, $arguments) {
+        //$cont = $cont_name =  CONTROLLER_NAMESPACE.ucfirst(strtolower($name)).'.php';
+        //$obj = new $cont($cont_name);
+        $this->view->render('admin/index');
+        //call_user_func([$obj,$cont_name], $arguments);
+    }
 }

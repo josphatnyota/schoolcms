@@ -4,12 +4,14 @@
         <meta charset="UTF-8">
         <title><?= $this->title();?></title>
        
-    <!--<link href="/assets/css/app.css" rel="stylesheet" />-->
+    
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/app.css" rel="stylesheet" />
         <?= $this->head(); ?>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
+            
             <?= $this->body();?>
         </div>
         

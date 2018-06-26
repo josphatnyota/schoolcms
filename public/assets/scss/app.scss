@@ -10,19 +10,122 @@ and open the template in the editor.
 
 $color:#fffddd;
 $bgcolor:#637988;
+/*
+========================
+ADMIN COLORS
+========================
+*/
+$adminbg:#F1F2F3;//cream
+$adminbg1:#F0F1F3;//light cream
+$adminbg2:#1976D2;//blue
+$adminbg3:#2c3e50;//white
+$adminbg4:#F7F9FA;
+$originalnavbg:#ECF2F6;
 body{
-    color:$color;
-    background: $bgcolor;
-    padding: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    padding-top: 50px;
 }
 
-div{
-    font-family: sans-serif;
-    color: $color;
+.custom-navbar{
+    background: $adminbg4;
+    margin-bottom:0;
+    margin-left: 160px;
+    border:none !important;
+    .navbar-brand{
+        color:#333;
+        &:hover{
+            color:#fff;
+        }
+    }
+    .right{
+        margin-top: 10px;
+        width: 30px;
+        height: 30px;
+        background: #ccc;
+        border: none;
+        border-radius:50%;
+    }
+    .navbar-form{
+        margin-top:13px;
+        padding-left:0;
+        .custom-search{
+        border: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        height: 23px;
+        border-radius: 15px;
+        border-bottom: 1px solid #e55039;//mandarin red
+    }
+    }
+    
 }
 
-.error404{
-    margin: 50px auto;
-    background: $bgcolor;
-    text-align: center;
+.custom-sidebar{
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3462;
+    background: $adminbg3;
+    max-width: 160px;
+    min-width: 140px;
+    .list-group{
+        margin-top: 120px;
+    }
+}
+.col-md-2{
+        padding-left: 0;
+        padding-right: 0;
+        
+        .list-group{
+            
+            margin-bottom: 0;
+            border-left: none;
+            border-right: none;
+            .list-group-item{
+                background: $adminbg3;
+                color: #fff;
+                border:none;
+                &:first-child{
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+                &:last-child{
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+        }
+}
+div#main{
+    margin-left:160px;
+    .content{
+        border-left: 1px solid #ccc;
+        
+        .one-half{
+            margin: 0 20px;
+            padding:10px 5px;
+            height: 300px;
+            border: none;
+            border-radius: 5px;
+            background: $adminbg1;
+            &:first-child{
+                margin-left: 50px;
+            }
+            #curve_chart{
+                margin: 0 auto;
+                width: 433px;
+                height: 280px;
+            }
+            .badge{
+                &:hover{
+                    background-color: #e55039;//mandarin red
+                }
+            }
+        }
+    }
+}
+
+div.clearfix{
+    border-left: 1px solid #e55039;
 }

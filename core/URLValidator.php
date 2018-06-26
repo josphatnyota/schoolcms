@@ -14,8 +14,8 @@ trait URLValidator {
      * @param type $path
      * @return true if its a query/ajax-like string,otherwise return false
      */
-    public function type($path):int{
-        
+    public function type($path):bool{
+        /*
         if (strpos($path, '?')!== false || strpos($path, '=') !== false){
             
             return true;
@@ -24,6 +24,9 @@ trait URLValidator {
         
         return false;
         
+         * 
+         */
+        return (bool)(strpos($path, '?')!== false || strpos($path, '=') !== false);
     }
     
     public function splitUrl($path , $bool):array{

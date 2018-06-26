@@ -7,21 +7,114 @@ and open the template in the editor.
     Created on : Jun 16, 2018, 2:26:59 AM
     Author     : afrikannerd <https://github.com/afrikannerd>
 */
+/*
+========================
+ADMIN COLORS
+========================
+*/
 body {
-  color: #fffddd;
-  background: #637988;
-  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  padding-top: 50px;
 }
 
-div {
-  font-family: sans-serif;
-  color: #fffddd;
+.custom-navbar {
+  background: #F7F9FA;
+  margin-bottom: 0;
+  margin-left: 160px;
+  border: none !important;
+}
+.custom-navbar .navbar-brand {
+  color: #333;
+}
+.custom-navbar .navbar-brand:hover {
+  color: #fff;
+}
+.custom-navbar .right {
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  background: #ccc;
+  border: none;
+  border-radius: 50%;
+}
+.custom-navbar .navbar-form {
+  margin-top: 13px;
+  padding-left: 0;
+}
+.custom-navbar .navbar-form .custom-search {
+  border: none;
+  padding-bottom: 0;
+  padding-top: 0;
+  height: 23px;
+  border-radius: 15px;
+  border-bottom: 1px solid #e55039;
 }
 
-.error404 {
-  margin: 50px auto;
-  background: #637988;
-  text-align: center;
+.custom-sidebar {
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3462;
+  background: #2c3e50;
+  max-width: 160px;
+  min-width: 140px;
+}
+.custom-sidebar .list-group {
+  margin-top: 120px;
+}
+
+.col-md-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.col-md-2 .list-group {
+  margin-bottom: 0;
+  border-left: none;
+  border-right: none;
+}
+.col-md-2 .list-group .list-group-item {
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+}
+.col-md-2 .list-group .list-group-item:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.col-md-2 .list-group .list-group-item:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+div#main {
+  margin-left: 160px;
+}
+div#main .content {
+  border-left: 1px solid #ccc;
+}
+div#main .content .one-half {
+  margin: 0 20px;
+  padding: 10px 5px;
+  height: 300px;
+  border: none;
+  border-radius: 5px;
+  background: #F0F1F3;
+}
+div#main .content .one-half:first-child {
+  margin-left: 50px;
+}
+div#main .content .one-half #curve_chart {
+  margin: 0 auto;
+  width: 433px;
+  height: 280px;
+}
+div#main .content .one-half .badge:hover {
+  background-color: #e55039;
+}
+
+div.clearfix {
+  border-left: 1px solid #e55039;
 }
 
 /*# sourceMappingURL=file:///E:/Projects/schoolcms/public/assets/css/app.css.map */

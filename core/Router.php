@@ -72,7 +72,7 @@ final class Router {
         $controller = $model = isset($this->routes['callable']['controller']) ?$this->routes['callable']['controller']:CONTROLLER;
         $action     = $this->routes['callable']['action'];
         $params     = $this->routes['params']??[];
-        
+        #dnd($this->routes);
         if(!class_exists($controller)){
             
             return new class(){
