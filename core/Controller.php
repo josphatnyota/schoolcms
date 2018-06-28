@@ -14,17 +14,11 @@ abstract class Controller {
     public $view;
     
     public function __construct($model) {
-        
+        $model = str_replace(CONTROLLER_NAMESPACE, MODEL_NAMESPACE, $model);
         $this->view = new View();
-        
+        $this->model = new $model();
     }
     
-    protected function model($model){
-        
-        $this->model = str_replace(CONTROLLER_NAMESPACE, MODEL_NAMESPACE, $model);
-        
-        return new $this->model();
-        
-    }
+    
     
 }

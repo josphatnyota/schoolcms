@@ -10,7 +10,7 @@ namespace Core;
  */
 abstract class Model {
     
-    protected $_instance = null;
+    protected  $_instance = null;
     
     public function __construct() {
         

@@ -10,4 +10,12 @@ use Core\Model;
  */
 class Dashboard extends Model{
     
+    public function __construct() {
+        parent::__construct();
+    }
+    public  function getTempData() {
+        
+        return $this->_instance->select('temp',['*'])->findAt(1);
+        
+    }
 }

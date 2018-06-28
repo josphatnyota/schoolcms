@@ -1,7 +1,7 @@
 <?php
 
 namespace Core;
-
+use PDO;
 /**
  * Handles all Database interactions 
  *
@@ -20,7 +20,7 @@ final class DB {
             
             $ini = parse_ini_file("../helpers/settings.ini", true);
             $dsn = $ini['db']['driver'] . ':host=' . $ini['db']['host'] . ';dbname=' . $ini['db']['dbname'].';charset='.$ini['db']['charset'];
-            $this->_pdo = new \PDO($dsn, $ini['db']['user'], $ini['db']['pass'], $options = []);
+            $this->_pdo = new PDO($dsn, $ini['db']['user'], $ini['db']['pass'], $options = []);
             
         } catch (\PDOException $exc) {
             
@@ -186,11 +186,9 @@ final class DB {
 
     public function findFirst() {
         
-        foreach ( $this->_result as $result ) {
+        return $this->_result[0];
             
-            return $result;
-            
-        }
+        
         
     }
 
@@ -217,7 +215,12 @@ final class DB {
         return $this->_result[$key]??[];
         
     }
-
+    
+    public function findLast(){
+        
+        return end($this->_result);
+        
+    }
    
     /*
      * =========================================================================
@@ -257,8 +260,14 @@ final class DB {
         return $this->_count;
         
     }
+    
+    public function getResult(){
+        
+        return $this->_result;
+        
+    }
 
-        public function __destruct() {
+    public function __destruct() {
         
         $this->_pdo = null;
         

@@ -18,7 +18,7 @@ class Dashboard extends Controller {
     
     public function index(){
         
-        $this->view->render('admin/index');
+        $this->view->render('admin/index',$this->model->getTempData());
         
     }
     

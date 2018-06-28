@@ -13,6 +13,7 @@ function dnd($arr) {
         var_dump($arr);
     
     echo "</pre>";
+    die();
     
 }
 

@@ -89,7 +89,7 @@ final class Router {
         
         $obj = new $controller($model);
         
-        call_user_func([$obj,$action], $params);
+        call_user_func_array([$obj,$action], $params);
         
     }
     

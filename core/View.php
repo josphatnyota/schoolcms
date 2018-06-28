@@ -16,7 +16,7 @@ class View {
         
     }
     
-    public function render($view):void{
+    public function render($view,$data = []):void{
         
         $except = ["error404","error401"];
        

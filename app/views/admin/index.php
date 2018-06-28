@@ -54,13 +54,13 @@
         <div class="col col-md-5 one-half">
             <h3 class="text-center">School Stats</h3>
             <div class="">
-                Enrolled Students&nbsp;&nbsp;<span class="badge">1357</span>
+                Enrolled Students&nbsp;&nbsp;<span class="badge"><?= $data->students?></span>
             </div>
             <div class="">
-                New Students&nbsp;&nbsp;<span class="badge">67</span>
+                New Students&nbsp;&nbsp;<span class="badge"><?= $data->enrolled?></span>
             </div>
             <div class="">
-                Students With Outstanding Balances&nbsp;&nbsp;<span class="badge">549</span>
+                Students With Outstanding Balances&nbsp;&nbsp;<span class="badge"><?= $data->arrears?></span>
             </div>
         </div>
     </section>
