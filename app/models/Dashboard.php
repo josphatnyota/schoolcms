@@ -15,7 +15,14 @@ class Dashboard extends Model{
     }
     public  function getTempData() {
         
-        return $this->_instance->select('temp',['*'])->findAt(1);
+        if(empty($this->_instance->select('students',['*'])->findAt(3))){
+            $dn = $this->_instance->getColumns('students');
+            $dn->adm_no = "Sasaa";
+            $dn->name = "Caleb";
+            $dn->class_id = 5;
+            return $dn;
+        }
         
+        return $this->_instance->select('students',['*'])->findAt(3);
     }
 }

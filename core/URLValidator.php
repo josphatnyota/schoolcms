@@ -15,18 +15,9 @@ trait URLValidator {
      * @return true if its a query/ajax-like string,otherwise return false
      */
     public function type($path):bool{
-        /*
-        if (strpos($path, '?')!== false || strpos($path, '=') !== false){
-            
-            return true;
-            
-        }
         
-        return false;
-        
-         * 
-         */
         return (bool)(strpos($path, '?')!== false || strpos($path, '=') !== false);
+        
     }
     
     public function splitUrl($path , $bool):array{
@@ -60,7 +51,7 @@ trait URLValidator {
             
         }
         
-        $paths['callable'] = ['controller'=>CONTROLLER_NAMESPACE.ucfirst(strtolower($callables[0])),'action'=>$callables[1]];
+        $paths['callable'] = ['controller'=>CONTROLLER_NAMESPACE.ucfirst(strtolower($callables[0]))."Controller",'action'=>$callables[1]];
         
         $params = [];
         
@@ -98,7 +89,7 @@ trait URLValidator {
         $path = rtrim($path, '/');
         $path = explode('/', $path);
         
-        $paths['callable'] = ['controller'=>isset($path[0])?CONTROLLER_NAMESPACE.ucfirst(strtolower($path[0])):CONTROLLER,'action'=>$path[1]??ACTION];
+        $paths['callable'] = ['controller'=>isset($path[0])?CONTROLLER_NAMESPACE.ucfirst(strtolower($path[0]))."Controller":CONTROLLER,'action'=>$path[1]??ACTION];
         
         if(isset($path[1])){
             

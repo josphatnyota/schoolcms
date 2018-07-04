@@ -67,9 +67,9 @@ class Security implements Securable {
      * 
      * @return string
      */
-    public static function XSRFTokenGenerator():string {
+    public static function XSRFTokenGenerator($strlen = 10):string {
         
-        return \hash('sha256', self::randomGenegator(13));
+        return \hash('sha256', self::randomGenerator($strlen));
         
     }
     /**
@@ -77,7 +77,7 @@ class Security implements Securable {
      * @param type $length
      * @return string
      */
-    public static function randomGenegator($length):string{
+    public static function randomGenerator($length):string{
         
         $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $token = '';

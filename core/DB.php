@@ -183,6 +183,13 @@ final class DB {
         
         $this->query($sql, $args);
     }
+    
+    public function getColumns($table){
+        
+        $sql = "SHOW COLUMNS FROM {$table}";
+        
+        return $this->query($sql);
+    }
 
     public function findFirst() {
         

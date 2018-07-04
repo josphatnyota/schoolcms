@@ -20,9 +20,9 @@ class View {
         
         $except = ["error404","error401"];
        
-        if (file_exists('../app/views/'.$view.'.php')) {
+        if (file_exists('../App/views/'.$view.'.php')) {
                 
-            include_once '../app/views/'.$view.'.php';
+            include_once '../App/views/'.$view.'.php';
         
             if(!in_array($view,$except)){
                 
@@ -36,7 +36,7 @@ class View {
              *     404 redirect goes here
              *   ==========================
              */
-            $this->_errors[] =  '../app/views/'.$view.'.php doesnt exist';
+            $this->_errors[] =  '../App/views/'.$view.'.php doesnt exist';
             
         }
         

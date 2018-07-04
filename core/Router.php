@@ -2,6 +2,8 @@
 
 namespace Core;
 use Core\Security\Security;
+use Core\Security\Sessions;
+
 /**
  * Description of Router
  * Created on : Jun 17, 2018, 1:01:01 AM
@@ -17,7 +19,7 @@ final class Router {
     public function __construct() {
         
         if($this->parseUrl() === TRUE){
-            
+            Sessions::setSession('token', Security::XSRFTokenGenerator());
             $this->dispatch();
             
         }

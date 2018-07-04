@@ -15,6 +15,7 @@ abstract class Controller {
     
     public function __construct($model) {
         $model = str_replace(CONTROLLER_NAMESPACE, MODEL_NAMESPACE, $model);
+        $model = str_replace("Controller", "" , $model);
         $this->view = new View();
         $this->model = new $model();
     }

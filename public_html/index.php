@@ -10,6 +10,7 @@
 /**
  * start session
  */
+
 session_start();
 /**
  * get url to process for redirects
@@ -18,6 +19,5 @@ session_start();
 
 
 include_once '../helpers/config.php';
-
 
 new \Core\Router();

@@ -6,7 +6,7 @@
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
-\Core\Security\Security::adminAreaAuth();
+
 ?>
 <?php $this->setTitle("Admin"); ?>
 <?php $this->open("head"); ?>
@@ -54,13 +54,13 @@
         <div class="col col-md-5 one-half">
             <h3 class="text-center">School Stats</h3>
             <div class="">
-                Enrolled Students&nbsp;&nbsp;<span class="badge"><?= $data->students?></span>
+                Enrolled Students&nbsp;&nbsp;<span class="badge"><?= $data->adm_no?></span>
             </div>
             <div class="">
-                New Students&nbsp;&nbsp;<span class="badge"><?= $data->enrolled?></span>
+                New Students&nbsp;&nbsp;<span class="badge"><?= $data->name?></span>
             </div>
             <div class="">
-                Students With Outstanding Balances&nbsp;&nbsp;<span class="badge"><?= $data->arrears?></span>
+                Students With Outstanding Balances&nbsp;&nbsp;<span class="badge"><?= $data->class_id?></span>
             </div>
         </div>
     </section>
