@@ -14,12 +14,18 @@ class HomeController extends Controller {
         parent::__construct($model);
     }
     public function index(){
+        
         $this->view->render('home/index');
+        
     }
     public function another(){
+        
         $this->view->render('student/index');
+        
     }
+    
     public function __call($name, $arguments) {
+        
         $bad_uri = $_SERVER['REQUEST_URI'];
         $this->view->render('error404');
     }

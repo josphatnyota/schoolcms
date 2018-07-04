@@ -1,5 +1,5 @@
 
-<?php $this->setTitle('Students');?>
+<?php  $this->setTitle('Students');?>
 <?php $this->open('head');?>
     <?php $this->close();?>
 <?php $this->open('body');?>

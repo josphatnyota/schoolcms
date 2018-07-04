@@ -19,6 +19,7 @@ final class Router {
     public function __construct() {
         
         if($this->parseUrl() === TRUE){
+            
             Sessions::setSession('token', Security::XSRFTokenGenerator());
             $this->dispatch();
             

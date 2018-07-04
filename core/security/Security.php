@@ -9,11 +9,7 @@ namespace Core\Security;
  * @version "0.1"
  */
 class Security implements Securable {
-    /**
-     * 
-     * @param type $path
-     * @return bool
-     */
+    
     public static function pathIntegrityCheck($path):bool{
         
         $url = null;

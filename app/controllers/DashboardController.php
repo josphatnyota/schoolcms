@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 use Core\Controller;
-
+use Core\Security\Sessions;
+use Core\Security\Security;
 /**
  * Description of Dashboard
  * Created on : Jun 22, 2018, 2:22:27 PM
@@ -18,16 +19,23 @@ class DashboardController extends Controller{
     }
     
     public function index(){
-        \Core\Security\Security::adminAreaAuth();
-        if(\Core\Security\Sessions::auth()){
+        
+        Security::adminAreaAuth();
+        
+        if(Sessions::auth()){
+            
             $this->view->render('admin/index',$this->model->getTempData());
+            
         }else{
+            
             $this->view->render('admin/login');
+            
         }
         
     }
     
     public function teachers(){
+        
         
         $this->view->render('admin/teacherpanel');
         

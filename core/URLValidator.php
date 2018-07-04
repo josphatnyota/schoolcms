@@ -9,11 +9,7 @@ namespace Core;
 trait URLValidator {
     
     
-    /**
-     * 
-     * @param type $path
-     * @return true if its a query/ajax-like string,otherwise return false
-     */
+    
     public function type($path):bool{
         
         return (bool)(strpos($path, '?')!== false || strpos($path, '=') !== false);

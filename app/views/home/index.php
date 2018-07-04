@@ -2,7 +2,8 @@
 <?php $this->open('head');?>
 <meta http-equiv="UA-Compatible" />
 <?php $this->close();?>
-<?php $this->open('body');?>
+<?php $this->open('body');
+navigation();?>
 <div>
     It is a long established fact that a reader will be distracted by the <br>
     readable content of a page when looking at its layout. The point of using<br>

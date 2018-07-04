@@ -69,6 +69,7 @@ final class DB {
         if($this->_query->execute()){
             
             $this->results();
+            
             $this->numRows();
             
         } else {

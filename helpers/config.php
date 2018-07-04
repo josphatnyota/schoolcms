@@ -10,6 +10,7 @@
 
 
 ini_set("display_errors",1);
+
 error_reporting(E_ALL);
 
 
@@ -129,4 +130,4 @@ include_once 'autoloader.php';
 
 include_once 'functions.php';
 
-$_SESSION['auth'] = true;
+

@@ -41,6 +41,7 @@
     </script>
 <?php $this->close(); ?>
 <?php $this->open("body"); ?>
+    
 <?php  navigation();?>
 <?php  sidebar();?>
 <div class="row offset main" id="main">

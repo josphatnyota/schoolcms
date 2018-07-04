@@ -36,6 +36,7 @@ class View {
              *     404 redirect goes here
              *   ==========================
              */
+            
             $this->_errors[] =  '../App/views/'.$view.'.php doesnt exist';
             
         }

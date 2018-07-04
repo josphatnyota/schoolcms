@@ -8,6 +8,7 @@ namespace Core;
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
+
 abstract class Model {
     
     protected  $_instance = null;

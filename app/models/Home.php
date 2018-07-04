@@ -10,5 +10,5 @@ use Core\Model;
  */
 class Home extends Model{
     
-    
+   
 }
