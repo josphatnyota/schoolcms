@@ -10,8 +10,9 @@
 
 
 ini_set("display_errors",1);
-
+ini_set('session.gc_maxlifetime',10);
 error_reporting(E_ALL);
+
 
 
 /**
@@ -112,7 +113,7 @@ function root(){
 /*
  * Define allowed paths
  */
-define('ALLOWED_PATHS', ['Home','About','User','Dashboard','Auth']);
+define('ALLOWED_PATHS', ['Home','Dashboard','Auth']);
 
 
 /*
@@ -130,4 +131,6 @@ include_once 'autoloader.php';
 
 include_once 'functions.php';
 
-
+/*
+ * Set/Save Session Handler;
+ */

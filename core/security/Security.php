@@ -32,13 +32,7 @@ class Security implements Securable {
             
         }
         
-        if (preg_grep("/^$url[0]$/i", $allowed)){
-            
-            return true;
-            
-        }
-        
-        return false;
+        return preg_grep("/^$url[0]$/i", $allowed) ? true : false;
         
     }
     
@@ -99,7 +93,7 @@ class Security implements Securable {
        if($user === $credentials['admin']['user'] && $pass === $credentials['admin']['pass'] ){
            
            $authorized = true;
-           
+           Session::set(['authorized'=>true]);
        }
        
        if (!$authorized){

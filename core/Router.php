@@ -1,8 +1,9 @@
 <?php
 
 namespace Core;
-use Core\Security\Security;
-use Core\Security\Sessions;
+use Core\{
+    Security\Security as Security, Security\MySQLSessionHandler
+};
 
 /**
  * Description of Router
@@ -17,18 +18,14 @@ final class Router {
     use URLValidator;
     
     public function __construct() {
-        
-        if($this->parseUrl() === TRUE){
+
+        $this->parseUrl();
             
-            Sessions::setSession('token', Security::XSRFTokenGenerator());
-            $this->dispatch();
-            
-        }
-        
+
     }
     
     
-    public function parseUrl(){
+    private function parseUrl(){
         
         $url = preg_replace('/\s+/','',urldecode($_SERVER['REQUEST_URI']));
         $url = ltrim($url, '/');
@@ -72,7 +69,7 @@ final class Router {
     public function dispatch(){
         
         $model = '';
-        $controller = $model = isset($this->routes['callable']['controller']) ?$this->routes['callable']['controller']:CONTROLLER;
+        $controller = $model = isset($this->routes['callable']['controller']) ? $this->routes['callable']['controller'] : CONTROLLER;
         $action     = $this->routes['callable']['action'];
         $params     = $this->routes['params']??[];
         #dnd($this->routes);
@@ -91,11 +88,12 @@ final class Router {
         }
         
         $obj = new $controller($model);
-        
+        //maybe
         call_user_func_array([$obj,$action], $params);
         
     }
     
     public function __call($name, $arguments) {}
-    
+
+
 }

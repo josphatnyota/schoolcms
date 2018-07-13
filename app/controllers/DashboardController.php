@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Controllers;
-use Core\Controller;
-use Core\Security\Sessions;
-use Core\Security\Security;
+use App\Models\Auth;
+use Core\{
+    Controller, Security\Security, Security\Session
+};
+
 /**
  * Description of Dashboard
  * Created on : Jun 22, 2018, 2:22:27 PM
@@ -11,56 +13,55 @@ use Core\Security\Security;
  * @version "0.1"
  */
 class DashboardController extends Controller{
-    
+
     public function __construct($model) {
         
         parent::__construct($model);
-        
+
+        Session::init();
+        #$this->middleware('auth');
+        if(!Session::exists('auth'))
+        {
+            header("Location: /auth/login");
+        }
+
     }
     
     public function index(){
-        
         Security::adminAreaAuth();
-        
-        if(Sessions::auth()){
-            
-            $this->view->render('admin/index',$this->model->getTempData());
-            
-        }else{
-            
-            $this->view->render('admin/login');
-            
-        }
-        
+
+        $this->view->render('dashboard/index');
+
     }
-    
+
     public function teachers(){
         
         
-        $this->view->render('admin/teacherpanel');
+        $this->view->render('dashboard/teacherpanel');
         
     }
     public function students(){
         
-        $this->view->render('admin/studentpanel');
+        $this->view->render('dashboard/studentpanel');
         
     }
     
     public function fees(){
         
-        $this->view->render('admin/feepanel');
+        $this->view->render('dashboard/feepanel');
     }
     
     public function exams(){
         
-        $this->view->render('admin/exampanel');
+        $this->view->render('dashboard/exampanel');
     }
 
     public function __call($name, $arguments) {
         
-        $this->view->render('admin/index');
+        $this->view->render('error404');
         
     }
+
 
    
 

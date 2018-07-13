@@ -7,17 +7,23 @@
  * @version "0.1"
  */
 
-/**
- * start session
- */
-
-session_start();
-/**
- * get url to process for redirects
- */
-
-
 
 include_once '../helpers/config.php';
 
-new \Core\Router();
+(new Core\Router)->dispatch();
+
+
+$t = Core\DB::instance();
+
+$cols = [
+    "id" => 123455,
+    "name" => "calleb",
+    "age" => 45,
+];
+
+$updatable = [
+    "name",
+
+];
+
+#$t->insertUpdate("user_sessions",$cols,$updatable);

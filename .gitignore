@@ -3,3 +3,5 @@
 package-lock.json
 routes.php
 .vscode
+.idea/
+test.php

@@ -51,7 +51,7 @@
             <div id="curve_chart" style=""></div>
 
         </div>
-        
+
         <div class="col col-md-5 one-half">
             <h3 class="text-center">School Stats</h3>
             <div class="">

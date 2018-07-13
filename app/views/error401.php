@@ -14,7 +14,7 @@
         <head>
             <meta charset="UTF-8">
             <title>401</title>
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
             <style>
                 .error404{
                     width: 100%;

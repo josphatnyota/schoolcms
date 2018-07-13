@@ -13,7 +13,7 @@ function dnd($arr) {
         var_dump($arr);
     
     echo "</pre>";
-    die();
+
     
 }
 
@@ -56,4 +56,41 @@ function sidebar(){
     </ul>
 </div>
 EOT;
+}
+
+
+function redirect($path)
+{
+    return new class($path)
+    {
+        private $_path = null,$_data = [];
+        public function __construct(string $path)
+        {
+            $this->_path = $path;
+
+        }
+
+        public function with(object $data)
+        {
+            $this->_data = $data;
+        }
+
+        public function error(array $error)
+        {
+            $this->_data = $error;
+        }
+
+        private function redirect()
+        {
+
+            (new \Core\View)->render($this->_path,$this->_data);
+
+        }
+
+        public function __destruct()
+        {
+            $this->redirect();
+        }
+
+    };
 }

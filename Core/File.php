@@ -3,12 +3,11 @@
 namespace Core;
 
 /**
- * Description of Email
- * Created on : Jun 29, 2018, 5:09:26 PM
+ * Description of File
+ * Created on : Jul 4, 2018, 4:59:17 PM
  * @author afrikannerd <https://github.com/afrikannerd>
  * @version "0.1"
  */
-class Email {
+class File {
     //put your code here
-
 }

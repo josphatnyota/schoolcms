@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 use PDO;
 /**
  * Handles all Database interactions 
@@ -12,8 +13,11 @@ final class DB {
 
     private static $_instance = null;
     
-    private $_pdo, $_result = null, $_lastInsertID = 0, $_error = false,$_query,$_count = 0;
+    public $_pdo, $_result = null, $_lastInsertID = 0, $_error = false,$_query,$_count = 0;
 
+    /**
+     * DB constructor.
+     */
     private function __construct() {
         
         try {
@@ -36,7 +40,7 @@ final class DB {
      */
     public static function instance(): self {
         
-        if (self::$_instance == null) {
+        if (self::$_instance === null) {
             
             self::$_instance = new DB();
             
@@ -45,32 +49,34 @@ final class DB {
         return self::$_instance;
     }
 
-    public function query($sql, $args = []) {
+    /**
+     * @param string $sql
+     * @param array $args
+     * @return $this
+     */
+    public function query(string $sql, array $args = []) {
         
         $this->_error = false;
-        
+
         if($this->_query = $this->_pdo->prepare($sql)){
             
             if (sizeof($args) > 0 ){
-                
-                $index = 1;
-                
-                foreach($args as $arg){
-                    
-                    $this->_query->bindValue($index, $arg);
-                    $index++;
-                    
+
+                foreach($args as $key => $arg){
+
+
+                    $this->_query->bindValue($key, $arg);
+
                 }
                 
             }
             
         }
-        
+
         if($this->_query->execute()){
             
-            $this->results();
-            
             $this->numRows();
+
             
         } else {
             
@@ -82,7 +88,11 @@ final class DB {
         return $this;
     }
 
-    public function insert($table, $args = []){
+    /**
+     * @param string $table
+     * @param array $args
+     */
+    public function insert(string $table, array $args){
         
         $fields = "";
         $placeholders = "";
@@ -91,19 +101,25 @@ final class DB {
         foreach ($args as $field => $data){
             
             $fields .= "`{$field}`,";
-            $placeholders .= "?,";
-            $params[] = $data;
+            $placeholders .= ":{$field},";
+            $params[$field] = $data;
             
         }
         
         $fields = rtrim($fields, ',');
         $placeholders = rtrim($placeholders, ',');
         $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$placeholders})";
-        
+        #dnd([$sql,$params]);
         $this->query($sql, $params);
     }
 
-    public function select($table,$columns,$args = []){
+    /**
+     * @param string $table
+     * @param array $columns
+     * @param array $args
+     * @return DB
+     */
+    public function select(string $table, array $columns, array $args = []){
         
         $fields = "";
         $placeholders = "";
@@ -122,29 +138,34 @@ final class DB {
             
             foreach ($args as $key => $val){
                 
-                $placeholders .= "{$key}=? AND ";
-                $params[] = $val;
+                $placeholders .= " {$key}=:{$key} AND";
+                $params[$key] = $val;
                 
             }
             
-            $placeholders = rtrim($placeholders, "AND ");
+            $placeholders = rtrim($placeholders, "AND");
             $sql .= " WHERE {$placeholders}";
             
         }
-        
+
         return $this->query($sql, $params);
         
     }
 
-    public function update($table,$args, $conditions) {
+    /**
+     * @param string $table
+     * @param array $args
+     * @param array $conditions
+     */
+    public function update(string $table, array $args, array $conditions) {
         
         $fields = "";
         $params = [];
         
         foreach ($args as $column => $value){
             
-            $fields .= " {$column}=?,";
-            $params[] = $value;
+            $fields .= " {$column}=:{$column},";
+            $params[$column] = $value;
             
         }
         
@@ -152,46 +173,114 @@ final class DB {
         
         foreach ($conditions as $key => $value) {
             
-            $params[] = $value;
-            $cond = $key."=?";
+            $params[$key] = $value;
+            $cond = $key."=:{$key}";
             break;
             
         }
         
         $sql = "UPDATE {$table} SET {$fields} WHERE {$cond}";
-        
+
         $this->query($sql, $params);
+    }
+
+    /**
+     * @param $table
+     * @param array $cols
+     * @param array $updatable
+     */
+    public function insertUpdate(string $table, array $cols, array $updatable)
+    {
+        $fields = "";
+        $values = "";
+        $updates = "";
+        $params = [];
+        $sql = "INSERT INTO {$table} (";
+
+        foreach ($cols as $key => $col) {
+
+            $fields .= "`{$key}`,";
+            $values .= ":{$key},";
+            $params[$key] = $col;
+
+        }
+
+        $fields = rtrim($fields,',');
+        $values = rtrim($values,',');
+        $sql .= "{$fields}) VALUES ({$values})";
+
+        foreach ($updatable as $col){
+
+            $updates .= "`{$col}`=:{$col},";
+
+        }
+
+        $updates = rtrim($updates,',');
+        $sql .= " ON DUPLICATE KEY UPDATE  {$updates}";
+
+        $this->query($sql,$params);
+
     }
     /*
      * =========================================================================
      *              REMEMBER TO IMPLEMENT SOFT DELETE
      * =========================================================================
      */
-    public function delete($table,$id){
-        
-        $condition;
+
+    /**
+     * Performs delete operations(soft or hard)
+     * @param string $table table from which a row is to be deleted
+     * @param array $id <p>an associative key=>value array of the row identifiers
+     * for the row to be deleted</p>
+     * @param bool $flag Determines if its a soft delete or hard delete<p>
+     * When set to true,The function executes soft delete by togggling the
+     * enum value of the delete column of the current table.
+     * </p>
+     */
+    public function delete(string $table, array $id, bool $flag = false,string $operator = '='){
+
+
+        $condition = "";
         $params = [];
         
         foreach ($id as $key => $val){
-            
-            $condition = $key."=?";
-            $params = $val;
+
+
+            $condition = $key."{$operator}:{$key}";
+            $params[$key] = $val;
             break;
             
         }
-        
-        $sql = "DELETE FROM {$table} WHERE {$condition}";
-        
-        $this->query($sql, $args);
+        if($flag){
+
+            $this->update($table,["deleted" => 1],$id);
+
+            return;
+
+        }else{
+
+            $sql = "DELETE FROM {$table} WHERE {$condition}";
+
+        }
+
+
+        $this->query($sql, $params);
     }
-    
-    public function getColumns($table){
+
+    /**
+     * @param $table
+     * @return DB
+     */
+    public function getColumns(string $table){
         
         $sql = "SHOW COLUMNS FROM {$table}";
         
         return $this->query($sql);
     }
 
+    /**
+     * @return mixed
+     */
     public function findFirst() {
         
         return $this->_result[0];
@@ -200,6 +289,10 @@ final class DB {
         
     }
 
+    /**
+     * @param $key
+     * @return array
+     */
     public function findAt($key) {
         
         if(is_array($key)){
@@ -223,7 +316,10 @@ final class DB {
         return $this->_result[$key]??[];
         
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function findLast(){
         
         return end($this->_result);
@@ -235,12 +331,26 @@ final class DB {
      *      INSTANCE VARIABLE  SETTER METHODS BEGIN HERE
      * =========================================================================
      */
-    public function results():void{
+    /**Returns query result in specified format
+     * @param int $mode PDO constants PDO::FETCH_*. if not supplied PDO::FETCH_OBJ is used as default
+     * @return array
+     */
+    public function results(int $mode = PDO::FETCH_OBJ){
         
-        $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
-        
+        $this->_result = $this->_query->fetchAll($mode);
+
+
     }
-    
+
+    private function setResults()
+    {
+        $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
+    /**
+     *
+     */
     public function numRows():void{
         
         $this->_count = $this->_query->rowCount();
@@ -257,18 +367,27 @@ final class DB {
      *      INSTANCE VARIABLE  GETTER METHODS START HERE
      * =========================================================================
      */
+    /**
+     * @return int
+     */
     public function getLastInsertID(){
         
         return $this->_lastInsertID;
         
     }
-    
+
+    /**
+     * @return int
+     */
     public function getRowCount(){
         
         return $this->_count;
         
     }
-    
+
+    /**
+     * @return array
+     */
     public function getResult(){
         
         return $this->_result;

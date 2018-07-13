@@ -13,11 +13,11 @@ class View {
     protected $_template = TEMPLATE,$_head,$_body,$_content,$_errors = [],$_title = TITLE;
     
     public function __construct() {
-        
+
     }
     
     public function render($view,$data = []):void{
-        
+
         $except = ["error404","error401"];
        
         if (file_exists('../App/views/'.$view.'.php')) {

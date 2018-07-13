@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,7 +12,18 @@
     </head>
     <body>
         <div class="container-fluid">
-            
+            <?php
+
+            if(count($this->_errors) > 0){
+                foreach($this->_errors as $error){
+            ?>
+            <div class="alert alert-warning">
+                <?= $error;?>
+            </div>
+            <?php
+                }
+            }
+            ?>
             <?= $this->body();?>
         </div>
         
