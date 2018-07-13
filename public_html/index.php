@@ -11,19 +11,13 @@
 include_once '../helpers/config.php';
 
 (new Core\Router)->dispatch();
+$_SESSION['token'] = \Core\Security\Security::XSRFTokenGenerator();
 
-
+/*
 $t = Core\DB::instance();
-
-$cols = [
-    "id" => 123455,
-    "name" => "calleb",
-    "age" => 45,
-];
-
-$updatable = [
-    "name",
-
-];
-
-#$t->insertUpdate("user_sessions",$cols,$updatable);
+$k = $t->query('SELECT `*` FROM users WHERE id=:id',['id'=>2]);
+$k->results(PDO::FETCH_ASSOC);
+$m = $t->getResult();
+echo $m['users_name'].'<br><hr>';
+dnd($t->getResult());
+*/

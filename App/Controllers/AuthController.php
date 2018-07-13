@@ -41,6 +41,7 @@ class AuthController extends Controller implements Authenticatable {
 
             $obj  =  $this->model->login($this->_columns,$this->_creds);
             $this->_data = $obj->data;
+
             $this->_isLoggedIn = $obj->isLoggedIn();
 
 
@@ -49,7 +50,8 @@ class AuthController extends Controller implements Authenticatable {
 
 
 
-                    Session::set(['auth'=>true,'user_id'=>$this->_data->id,'user_name'=>$this->_data->users_name,'level'=>$this->_data->users_rank]);
+                    Session::set(['user_id'=>$this->_data->id,'auth'=>true,'user_name'=>$this->_data->users_name,
+                        'level'=>$this->_data->users_rank,]);
 
                     header("location: /dashboard");
 

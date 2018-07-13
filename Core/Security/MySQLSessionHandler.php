@@ -9,12 +9,12 @@
 namespace Core\Security;
 
 
-use Core\DB;
+use \PDO;
 
 class MySQLSessionHandler implements \SessionHandlerInterface
 {
 
-    private $_link;
+    private $_link = null;
     private $_table = "user_sessions";
     private $_sess_id = "sess_id";
     private $_sess_data = "sess_data";
@@ -23,9 +23,22 @@ class MySQLSessionHandler implements \SessionHandlerInterface
     private $_gcStatus = false;
     public function __construct()
     {
-        $this->_link = DB::instance();
+
         $this->_expiry = time() + (int) ini_get("session.gc_maxlifetime");
-        session_set_save_handler($this);
+
+        try {
+
+            $ini = parse_ini_file("../helpers/settings.ini", true);
+            $dsn = $ini['db']['driver'] . ':host=' . $ini['db']['host'] . ';dbname=' . $ini['db']['dbname'].';charset='.$ini['db']['charset'];
+            $this->_link = new PDO($dsn, $ini['db']['user'], $ini['db']['pass'], $options = []);
+            session_set_save_handler($this);
+
+        } catch (\PDOException $exc) {
+
+            echo $exc->getMessage();
+
+        }
+
     }
 
 
@@ -42,13 +55,15 @@ class MySQLSessionHandler implements \SessionHandlerInterface
     {
         if($this->_gcStatus){
 
-            $id = [
 
-                $this->_col_expiry => time()
+            if($sql = $this->_link->prepare("DELETE FROM {$this->_table} WHERE {$this->_col_expiry}<:{$this->_col_expiry}"))
+            {
 
-            ];
+                $sql->bindValue(":{$this->_col_expiry}",time());
+                $sql->execute();
+            }
 
-            $this->_link->delete($this->_table,$id,false,'<');
+
             $this->_gcStatus = false;
         }
 
@@ -69,10 +84,12 @@ class MySQLSessionHandler implements \SessionHandlerInterface
      */
     public function destroy($session_id)
     {
-        $id = [
-            $this->_sess_id => $session_id,
-        ];
-        $this->_link->delete($this->_table,$id,false);
+        if($sql = $this->_link->prepare("DELETE FROM {$this->_table} WHERE {$this->_sess_id}=:{$this->_sess_id}"))
+        {
+
+            $sql->bindValue(":{$this->_sess_id}",$session_id);
+            $sql->execute();
+        }
 
         return true;
     }
@@ -128,21 +145,26 @@ class MySQLSessionHandler implements \SessionHandlerInterface
     public function read($session_id)
     {
 
-        $columns = [$this->_sess_data,$this->_col_expiry];
-        $args = [
-            $this->_sess_id => $session_id,
-        ];
+        $sql = "SELECT `{$this->_sess_data}`,`{$this->_col_expiry}` FROM {$this->_table} WHERE  {$this->_sess_id}=:{$this->_sess_id} ";
 
-        $this->_link->select($this->_table,$columns,$args)->results(\PDO::FETCH_ASSOC);
-
-        if($this->_link->getRowCount() === 0 )
-        {
-            $args = array_replace($args,[$this->_sess_data => "",$this->_col_expiry => $this->_expiry]);
-            $this->_link->insert($this->_table,$args);
-            return "";
+        if($query = $this->_link->prepare($sql)){
+            $query->bindValue($this->_sess_id,$session_id);
         }
+        if($query->execute()){
+            if($query->rowCount() < 1)
+            {
+                if($sql = $this->_link->prepare("INSERT INTO {$this->_table}(`{$this->_sess_id}`,`{$this->_sess_data}`,`{$this->_col_expiry}`) VALUES (:{$this->_sess_id},:{$this->_sess_data},:{$this->_col_expiry})"))
+                {
 
-        $results = $this->_link->findFirst();
+                    $sql->bindValue(":{$this->_sess_id}",$session_id);
+                    $sql->bindValue(":{$this->_sess_data}","");
+                    $sql->bindValue(":{$this->_col_expiry}",$this->_expiry);
+                    $sql->execute();
+                    return "";
+                }
+            }
+            $results = $query->fetch(PDO::FETCH_ASSOC);
+        }
 
         return !empty($results[$this->_sess_data]) ? $results[$this->_sess_data] : "";
     }
@@ -167,18 +189,17 @@ class MySQLSessionHandler implements \SessionHandlerInterface
     public function write($session_id, $session_data)
     {
 
-        $cols = [
-            $this->_sess_id => $session_id,
-            $this->_sess_data => $session_data,
-            $this->_col_expiry => $this->_expiry,
-        ];
+        $sql = "INSERT INTO {$this->_table}(`{$this->_sess_id}`,`{$this->_sess_data}`,`{$this->_col_expiry}`)";
+        $sql .= " VALUES (:{$this->_sess_id},:{$this->_sess_data},:{$this->_col_expiry}) ON DUPLICATE KEY UPDATE" ;
+        $sql .="  {$this->_sess_data}=:{$this->_sess_data},{$this->_col_expiry}=:{$this->_col_expiry}";
 
-        $updatable = [
-            $this->_sess_data,
-
-        ];
-
-        $this->_link->insertUpdate($this->_table,$cols,$updatable);
+        if($query = $this->_link->prepare($sql))
+        {
+            $query->bindValue(":{$this->_sess_id}",$session_id);
+            $query->bindValue(":{$this->_sess_data}",$session_data);
+            $query->bindValue(":{$this->_col_expiry}",$this->_expiry);
+            $query->execute();
+        }
 
         return true;
     }

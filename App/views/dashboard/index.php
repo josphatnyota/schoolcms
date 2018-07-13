@@ -55,7 +55,7 @@
         <div class="col col-md-5 one-half">
             <h3 class="text-center">School Stats</h3>
             <div class="">
-                Enrolled Students&nbsp;&nbsp;<span class="badge"><?= $data->adm_no?></span>
+                Enrolled Students&nbsp;&nbsp;<span class="badge"><?= \Core\Security\Session::get('user_name');?></span>
             </div>
             <div class="">
                 New Students&nbsp;&nbsp;<span class="badge"><?= $data->name?></span>

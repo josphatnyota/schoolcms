@@ -2,7 +2,7 @@
 
 namespace Core;
 use Core\{
-    Security\Security as Security, Security\MySQLSessionHandler
+    Security\Security as Security, Security\MySQLSessionHandler, Security\Session
 };
 
 /**

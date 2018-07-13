@@ -1,14 +1,15 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: nerd
+ * Date: 14/07/2018
+ * Time: 01:30
+ */
 
 namespace Core;
 
-/**
- * Description of Email
- * Created on : Jun 29, 2018, 5:09:26 PM
- * @author afrikannerd <https://github.com/afrikannerd>
- * @version "0.1"
- */
-class Email {
-    //put your code here
+
+class Email
+{
 
 }

@@ -109,7 +109,7 @@ final class DB {
         $fields = rtrim($fields, ',');
         $placeholders = rtrim($placeholders, ',');
         $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$placeholders})";
-        #dnd([$sql,$params]);
+
         $this->query($sql, $params);
     }
 
@@ -151,6 +151,8 @@ final class DB {
         return $this->query($sql, $params);
         
     }
+
+
 
     /**
      * @param string $table
@@ -337,16 +339,12 @@ final class DB {
      */
     public function results(int $mode = PDO::FETCH_OBJ){
         
-        $this->_result = $this->_query->fetchAll($mode);
+        $this->_result = $this->_query->fetch($mode);
 
 
     }
 
-    private function setResults()
-    {
-        $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
 
-    }
 
     /**
      *

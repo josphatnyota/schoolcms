@@ -26,13 +26,15 @@ class Auth extends Model{
     public function login(array $columns,array $creds){
 
         try{
-            if($result = $this->_instance->select($this->_table,$columns,$creds))
+            if($data = $this->_instance->select($this->_table,$columns,$creds))
             {
 
 
 
-                if ($result->getRowCount() > 0){
-                    $this->data = $result->findFirst();
+
+                if ($data->getRowCount() > 0){
+                    $data->results();
+                    $this->data = $data->getResult();
                     #dnd($this->data);
                     $this->isLoggedIn = true;
                 }
