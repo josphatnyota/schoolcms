@@ -56,7 +56,7 @@ class AuthController extends Controller implements Authenticatable {
                     header("location: /dashboard");
 
                 }else{
-                    redirect('auth/login')->error(['error'=>"Wrong credentials"]);
+                     $this->view->render('dashboard/login',['error' => "Wrong Credentials"]);
                 }
             }
 

@@ -191,7 +191,8 @@ class MySQLSessionHandler implements \SessionHandlerInterface
 
         $sql = "INSERT INTO {$this->_table}(`{$this->_sess_id}`,`{$this->_sess_data}`,`{$this->_col_expiry}`)";
         $sql .= " VALUES (:{$this->_sess_id},:{$this->_sess_data},:{$this->_col_expiry}) ON DUPLICATE KEY UPDATE" ;
-        $sql .="  {$this->_sess_data}=:{$this->_sess_data},{$this->_col_expiry}=:{$this->_col_expiry}";
+        $sql .="  {$this->_sess_data}=:{$this->_sess_data}";
+        $sql .= ",{$this->_col_expiry}=:{$this->_col_expiry}";
 
         if($query = $this->_link->prepare($sql))
         {

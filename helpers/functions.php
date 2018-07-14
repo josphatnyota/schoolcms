@@ -24,6 +24,7 @@ function contains($haystack, $needle) {
 }
 
 function navigation(){
+    $name = \Core\Security\Session::get('user_name');
     echo <<<NAV
 <nav class="navbar navbar-default navbar-fixed-top custom-navbar">
     <div class="container-fluid">
@@ -34,6 +35,9 @@ function navigation(){
                 </div>
                 
             </form>
+        </div>
+        <div class="username">
+             $name
         </div>
         <div class="right pull-right">
 

@@ -11,7 +11,8 @@
 include_once '../helpers/config.php';
 
 (new Core\Router)->dispatch();
-$_SESSION['token'] = \Core\Security\Security::XSRFTokenGenerator();
+\Core\Security\Session::set(['token' => \Core\Security\Security::XSRFTokenGenerator()]);
+
 
 /*
 $t = Core\DB::instance();
